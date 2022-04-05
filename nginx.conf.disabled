@@ -160,6 +160,26 @@ http {
 
         location / {
         }
+	
+	location /phpMyAdmin {
+            root /usr/share/;
+            index index.php index.html index.htm;
+            location ~ ^/phpMyAdmin/(.+\.php)$ {
+                try_files $uri =404;
+                fastcgi_pass  unix:/var/opt/remi/php74/run/php-fpm/www.sock;
+                fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+                fastcgi_index index.php;
+                include fastcgi_params;
+                fastcgi_read_timeout 300;
+            }
+            location ~* ^/phpMyAdmin/(.+\.(jpg|jpeg|gif|css|png|js|ico|html|xml|txt))$ {
+                root /usr/share/;
+            }
+        }
+
+        location /phpmyadmin {
+            rewrite ^/* /phpMyAdmin last;
+        }
 
         error_page 404 /404.html;
             location = /40x.html {
