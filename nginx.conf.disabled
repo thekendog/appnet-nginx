@@ -149,6 +149,7 @@ http {
 
     # Rate limit wp-login.php
     limit_req_zone $binary_remote_addr zone=wp_login:10m rate=1r/s;
+    limit_req_status 429;
 
     # Include virtual hosts
     include /etc/nginx/conf.d/*.conf;
