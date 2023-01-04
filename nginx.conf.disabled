@@ -46,7 +46,7 @@ http {
     # and uncomment the following line:
     # ssl_dhparam /etc/pki/nginx/dhparam.pem;
     ssl_session_timeout 24h;
-    ssl_session_cache shared:SSL:30m;
+    ssl_session_cache shared:SSL:50m;
     ssl_protocols TLSv1.2 TLSv1.3;
     ssl_session_tickets off;
 
@@ -115,12 +115,6 @@ http {
         text/x-cross-domain-policy;
         # text/html is always compressed when enabled.
 
-    # WebP
-    map $http_accept $webp_suffix {
-        default "";
-        "~*webp" ".webp";
-    }
-
     # Cloudflare
     real_ip_header X-Forwarded-For;
     set_real_ip_from 103.21.244.0/22;
@@ -165,9 +159,10 @@ http {
         include /etc/nginx/default.d/*.conf;
 
         location / {
+
         }
 	
-	location /phpMyAdmin {
+	    location /phpMyAdmin {
             root /usr/share/;
             index index.php index.html index.htm;
             location ~ ^/phpMyAdmin/(.+\.php)$ {
