@@ -145,6 +145,11 @@ http {
     limit_req_zone $binary_remote_addr zone=wp_login:10m rate=30r/m;
     limit_req_status 429;
 
+    # Set the default x frame option security header
+    map $appnet_frame $appnet_frame {
+        default "SAMEORIGIN";
+    }
+
     # Include virtual hosts
     include /etc/nginx/conf.d/*.conf;
 
