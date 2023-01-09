@@ -146,8 +146,9 @@ http {
     limit_req_status 429;
 
     # Set the default x frame option security header
-    map $appnet_frame $appnet_frame {
+    map $arg_appnet_frame $appnet_frame {
         default "SAMEORIGIN";
+        ~. $arg_appnet_frame;
     }
 
     # Include virtual hosts
